@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:mpesa_flutter_plugin/mpesa_flutter_plugin.dart'; //Import the plugin
-import './global_keys.dart';
+// import './global_keys.dart';
 
 void main() {
   /*Set Consumer credentials before initializing the payment.
     You can get  them from https://developer.safaricom.co.ke/ by creating
     an account and an app.
      */
-  MpesaFlutterPlugin.setConsumerKey(mConsumerKey);
-  MpesaFlutterPlugin.setConsumerSecret(mConsumerSecret);
+  // MpesaFlutterPlugin.setConsumerKey(mConsumerKey);
+  // MpesaFlutterPlugin.setConsumerSecret(mConsumerSecret);
 
   runApp(MyApp());
 }
@@ -21,7 +21,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Future<void> startCheckout({required String userPhone, required double amount}) async {
+  Future<void> startCheckout(
+      {required String userPhone, required double amount}) async {
     //Preferably expect 'dynamic', response type varies a lot!
     dynamic transactionInitialisation;
     //Better wrap in a try-catch for lots of reasons.
@@ -29,17 +30,19 @@ class _MyAppState extends State<MyApp> {
       //Run it
       transactionInitialisation =
           await MpesaFlutterPlugin.initializeMpesaSTKPush(
-              businessShortCode: "174379",
-              transactionType: TransactionType.CustomerPayBillOnline,
-              amount: amount,
-              partyA: userPhone,
-              partyB: "174379",
-              callBackURL: Uri(scheme: "https", host : "1234.1234.co.ke", path: "/1234.php"),
-              accountReference: "shoe",
-              phoneNumber: userPhone,
-              baseUri: Uri(scheme: "https", host: "sandbox.safaricom.co.ke"),
-              transactionDesc: "purchase",
-              passKey: mPasskey);
+        businessShortCode: "174379",
+        transactionType: TransactionType.CustomerPayBillOnline,
+        amount: amount,
+        partyA: userPhone,
+        partyB: "174379",
+        callBackURL:
+            Uri(scheme: "https", host: "1234.1234.co.ke", path: "/1234.php"),
+        accountReference: "shoe",
+        phoneNumber: userPhone,
+        baseUri: Uri(scheme: "https", host: "sandbox.safaricom.co.ke"),
+        transactionDesc: "purchase",
+        passKey: "mPasskey",
+      );
 
       print("TRANSACTION RESULT: " + transactionInitialisation.toString());
 
@@ -107,11 +110,12 @@ class _MyAppState extends State<MyApp> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         Container(
-                          width: MediaQuery.of(context).size.width*0.45,
+                          width: MediaQuery.of(context).size.width * 0.45,
                           child: Text(
                             itemsOnSale[index]["itemName"],
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 14.0, color: Colors.black),
+                            style:
+                                TextStyle(fontSize: 14.0, color: Colors.black),
                           ),
                         ),
                         Text(
